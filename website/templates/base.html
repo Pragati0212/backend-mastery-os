@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %} - Backend Mastery OS</title>
+    <style>
+        :root {
+            --bg: #0f172a; --surface: #1e293b; --surface-hover: #334155;
+            --text: #e2e8f0; --text-muted: #94a3b8;
+            --accent: #38bdf8; --border: #334155;
+        }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--bg); color: var(--text); 
+            display: flex; height: 100vh; overflow: hidden;
+        }
+        nav { 
+            width: 280px; background: var(--surface); padding: 1.5rem; 
+            border-right: 1px solid var(--border); overflow-y: auto;
+            display: flex; flex-direction: column; gap: 0.5rem;
+        }
+        nav h2 { margin-top: 0; font-size: 1.2rem; color: var(--accent); letter-spacing: 0.5px; }
+        nav a { 
+            color: var(--text); text-decoration: none; padding: 0.75rem 1rem; 
+            border-radius: 6px; transition: background 0.2s; font-size: 0.95rem;
+        }
+        nav a:hover, nav a.active { background: var(--surface-hover); color: var(--accent); }
+        main { flex: 1; padding: 3rem 5rem; overflow-y: auto; line-height: 1.7; font-size: 1.05rem; }
+        .content-wrapper { max-width: 900px; margin: 0 auto; }
+        h1, h2, h3 { color: #f8fafc; margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        a { color: var(--accent); text-decoration: none; }
+        pre { background: #020617; padding: 1.5rem; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); }
+        code { font-family: 'Fira Code', monospace; font-size: 0.9em; background: rgba(0,0,0,0.3); padding: 0.2em 0.4em; border-radius: 4px; }
+        pre code { background: transparent; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background: var(--surface); }
+        .mermaid { background: var(--surface); padding: 1.5rem; border-radius: 8px; text-align: center; margin: 2rem 0; border: 1px solid var(--border); display: block;}
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>⚙️ Mastery OS</h2>
+        <a href="/">Home</a>
+        <hr style="border-color: var(--border); width: 100%; margin: 1rem 0;">
+        <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.5rem;">Knowledge Vault</span>
+        {% for t in topics %}
+            <a href="/topic/{{ t }}">{{ t | replace('-', ' ') | title }}</a>
+        {% endfor %}
+    </nav>
+    <main>
+        <div class="content-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        const mermaidBlocks = document.querySelectorAll('code.language-mermaid');
+        mermaidBlocks.forEach((block) => {
+            const pre = block.parentElement;
+            const div = document.createElement('div');
+            div.className = 'mermaid';
+            div.textContent = block.textContent;
+            pre.parentNode.replaceChild(div, pre);
+        });
+        mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
+    </script>
+</body>
+</html>

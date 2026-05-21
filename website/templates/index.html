@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome to Backend Mastery OS</h1>
+    <p>This is your local, AI-powered engineering knowledge base. All content is generated via Gemini 2.5 Pro and stored safely as Markdown.</p>
+    <h2>Quick Actions</h2>
+    <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border);">
+        <p>To generate a new engineering topic, open your terminal and run:</p>
+        <pre style="margin: 0;"><code>python generators/generate.py "High Availability Systems"</code></pre>
+        <p style="margin-bottom: 0; color: var(--text-muted);">Refresh this page once the script completes, and it will appear in your sidebar.</p>
+    </div>
+{% endblock %}
